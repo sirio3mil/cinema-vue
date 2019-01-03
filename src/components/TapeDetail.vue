@@ -1,8 +1,20 @@
 <template>
-    <div class="tapeDetailMain">
-        <h1>{{originalTitle}}</h1>
-        <b-form-input v-model="tapeId" type="text" placeholder="enter tape id"></b-form-input>
-        <b-button variant="primary" @click="getLanguage">Get Tape Details</b-button>
+    <div id="tapeDetailMain" class="col-md-6 m-auto align-middle">
+        <img alt="logo" src="../assets/logo.png" class="mb-4">
+        <b-form @submit="onSubmit" @reset="onReset">
+            <b-form-group id="searchGroup"
+                          label-for="searchInput"
+                          description="You can search for what you want.">
+                <b-form-input id="searchInput"
+                              type="text"
+                              v-model="form.pattern"
+                              required
+                              autofocus>
+                </b-form-input>
+            </b-form-group>
+        </b-form>
+        <b-button type="submit" variant="primary" class="mr-2">Search</b-button>
+        <b-button type="reset" variant="danger">Reset</b-button>
     </div>
 </template>
 
@@ -11,29 +23,36 @@
 
     export default {
         name: "TapeDetail",
-        data () {
+        data() {
             return {
-                tapeId: '',
-                originalTitle: ''
+                form: {
+                    pattern: ''
+                },
+                results: []
             }
         },
         methods: {
-            async getLanguage () {
+            async onSubmit(evt) {
+                evt.preventDefault()
                 try {
                     const res = await axios.post(
                         'https://api.reynier.es/graphql', {
                             query: `
                                 {
-                                    getTape(tapeId:` + this.tapeId + `){
+                                    getTape(tapeId:` + this.form.pattern + `){
                                         originalTitle
                                     }
                                 }
                             `
                         })
-                    this.originalTitle = res.data.data.getTape.originalTitle
+                    this.results.push(res.data.data.getTape.originalTitle)
                 } catch (e) {
                     console.log('err', e)
                 }
+            },
+            onReset(evt) {
+                evt.preventDefault()
+                this.form.pattern = ''
             }
         }
     }
