@@ -39,13 +39,20 @@
                         'https://api.reynier.es/graphql', {
                             query: `
                                 {
-                                    getTape(tapeId:` + this.form.pattern + `){
-                                        originalTitle
+                                    search(pattern:"` + this.form.pattern + `"){
+                                        searchParam
+                                        rowType
+                                        rowTypeId
+                                        objectId
+                                        original
+                                        year
+                                        internalId
+                                        imdbNumber
                                     }
                                 }
                             `
                         })
-                    this.results.push(res.data.data.getTape.originalTitle)
+                    this.results = res.data.data.search
                 } catch (e) {
                     console.log('err', e)
                 }
