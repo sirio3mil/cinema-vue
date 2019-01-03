@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <TapeDetail />
+    <MainSearch />
   </div>
 </template>
 
 <script>
-import TapeDetail from './components/TapeDetail.vue'
+import MainSearch from './components/MainSearch.vue'
 
 export default {
   name: 'app',
   components: {
-    TapeDetail
+    MainSearch: MainSearch
   }
 }
 </script>

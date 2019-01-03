@@ -1,5 +1,5 @@
 <template>
-    <div id="tapeDetailMain" class="col-md-6 m-auto align-middle">
+    <div id="mainSearchContainer" class="col-md-6 m-auto align-middle">
         <img alt="logo" src="../assets/logo.png" class="mb-4">
         <b-form @submit="onSubmit" @reset="onReset">
             <b-form-group id="searchGroup"
@@ -22,7 +22,7 @@
     import axios from 'axios'
 
     export default {
-        name: "TapeDetail",
+        name: "MainSearch",
         data() {
             return {
                 form: {
