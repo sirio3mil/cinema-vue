@@ -1,8 +1,8 @@
 <template>
     <div class="tapeDetailMain">
         <h1>{{originalTitle}}</h1>
-        <input v-model="tapeId" placeholder="edit me">
-        <button @click="getLanguage">Get Tape Details</button>
+        <b-form-input v-model="tapeId" type="text" placeholder="enter tape id"></b-form-input>
+        <b-button variant="primary" @click="getLanguage">Get Tape Details</b-button>
     </div>
 </template>
 
