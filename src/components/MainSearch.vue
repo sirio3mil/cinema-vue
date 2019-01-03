@@ -8,7 +8,6 @@
                 <b-form-input id="searchInput"
                               type="text"
                               v-model="form.pattern"
-                              required
                               autofocus>
                 </b-form-input>
             </b-form-group>
