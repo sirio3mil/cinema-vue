@@ -1,18 +1,16 @@
 <template>
-    <div id="mainSearchContainer" class="col-md-6 m-auto align-middle text-center pt-4">
-        <img alt="logo" src="../assets/logo.png" class="mb-4">
+    <div id="searchResultContainer" class="pt-4">
         <b-form @submit="onSubmit" @reset="onReset">
-            <b-form-group id="searchGroup"
-                          label-for="searchInput"
-                          description="You can search for what you want.">
+            <b-input-group prepend="Search by">
                 <b-form-input id="searchInput"
                               type="text"
-                              v-model="form.pattern"
-                              autofocus>
+                              v-model="form.pattern">
                 </b-form-input>
-            </b-form-group>
-            <b-button type="submit" variant="primary" class="mr-2">Search</b-button>
-            <b-button type="reset" variant="danger">Reset</b-button>
+                <b-input-group-append>
+                    <b-btn type="submit" variant="primary">Search</b-btn>
+                    <b-btn type="reset" variant="danger">Reset</b-btn>
+                </b-input-group-append>
+            </b-input-group>
         </b-form>
     </div>
 </template>
@@ -21,7 +19,7 @@
     import axios from 'axios'
 
     export default {
-        name: "MainSearch",
+        name: "Results",
         data() {
             return {
                 form: {
@@ -29,6 +27,9 @@
                 },
                 results: []
             }
+        },
+        mounted() {
+            this.form.pattern = this.$route.params.pattern
         },
         methods: {
             async onSubmit(evt) {

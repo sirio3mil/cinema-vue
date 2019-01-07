@@ -1,6 +1,8 @@
-import MainSearch from './components/MainSearch.vue'
+import Search from './components/Search.vue'
+import Results from './components/Results.vue'
 
 export default [
 
-    {path: '/', component: MainSearch}
+    {path: '/', component: Search},
+    {path: '/results/:pattern', component: Results}
 ]
