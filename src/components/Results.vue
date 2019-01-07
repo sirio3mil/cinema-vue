@@ -29,7 +29,7 @@
             }
         },
         mounted() {
-            this.form.pattern = this.$route.params.pattern
+            this.form.pattern = decodeURI(this.$route.params.pattern)
         },
         methods: {
             async onSubmit(evt) {
