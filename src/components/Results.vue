@@ -16,8 +16,8 @@
         </div>
         <div id="searchResultsContainer" class="p-2">
             <div v-for="item in results" :key="item.internalId">
-                <h1>{{ item.searchParam }}</h1>
-                <h2>{{ item.original }} - {{ item.year }}</h2>
+                <h5>{{ item.searchParam }}</h5>
+                <h6>{{ item.original }} - {{ item.year }}</h6>
             </div>
         </div>
     </div>
