@@ -17,7 +17,8 @@
         <div id="searchResultsContainer" class="p-2">
             <div v-for="item in results" :key="item.internalId">
                 <h5>{{ item.searchParam }}</h5>
-                <h6>{{ item.original }} - {{ item.year }}</h6>
+                <h6>{{ item.object.tape.originalTitle }} - {{ item.object.tape.detail.year }}</h6>
+                <p v-if="item.object.tape.plot">{{ item.object.tape.plot.plot }}</p>
             </div>
         </div>
     </div>
@@ -47,15 +48,25 @@
                         'https://api.reynier.es/graphql', {
                             query: `
                                 {
-                                    search(pattern:"` + this.form.pattern + `"){
+                                    search(pattern:"` + this.form.pattern + `",rowType:4){
                                         searchParam
-                                        rowType
-                                        rowTypeId
-                                        objectId
-                                        original
-                                        year
-                                        internalId
-                                        imdbNumber
+                                        object{
+                                          tape{
+                                            originalTitle
+                                            detail{
+                                              year
+                                            }
+                                            plot{
+                                              plot
+                                            }
+                                          }
+                                          files{
+                                            name
+                                            path
+                                            extension
+                                            downloadName
+                                          }
+                                        }
                                     }
                                 }
                             `
