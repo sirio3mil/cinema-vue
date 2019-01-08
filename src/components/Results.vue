@@ -15,6 +15,10 @@
             </b-form>
         </div>
         <div id="searchResultsContainer" class="p-2">
+            <div v-for="item in results" :key="item.internalId">
+                <h1>{{ item.searchParam }}</h1>
+                <h2>{{ item.original }} - {{ item.year }}</h2>
+            </div>
         </div>
     </div>
 </template>
