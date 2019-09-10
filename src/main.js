@@ -19,6 +19,7 @@ const router = new Router({
 })
 
 new Vue({
+  baseUrl: 'http://cinema.lcl',
   render: h => h(App),
   router: router
 }).$mount('#app')

@@ -26,6 +26,7 @@
 
 <script>
     import axios from 'axios'
+    import queryString from 'query-string'
 
     export default {
         name: "Results",
@@ -34,7 +35,9 @@
                 form: {
                     pattern: ''
                 },
-                results: []
+                results: [],
+                bearerToken: '',
+                tokenType: ''
             }
         },
         mounted() {
@@ -42,10 +45,41 @@
             this.getSearchResults()
         },
         methods: {
-            async getSearchResults () {
+            async getLogin() {
+                try {
+                    const res = await axios.post('http://cinema.lcl:10580/oauth',
+                        queryString.stringify({
+                            'grant_type': 'password',
+                            'username': 'user_test',
+                            'password': 'test',
+                            'client_id': 'client_test',
+                            'client_secret': 'test',
+                            'scope': 'test'
+                        }), {
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            }
+                        })
+                    this.bearerToken = res.data.access_token
+                    this.tokenType = res.data.token_type
+                } catch (e) {
+                    console.log('err', e)
+                }
+            },
+            async getSearchResults() {
+                if (this.bearerToken === ''){
+                    this.getLogin().then(
+                        this.getData()
+                    )
+                }
+                else{
+                    this.getData()
+                }
+            },
+            async getData() {
                 try {
                     const res = await axios.post(
-                        'https://api.reynier.es/graphql', {
+                        'http://cinema.lcl:10580', {
                             query: `
                                 {
                                     search(pattern:"` + this.form.pattern + `",rowType:4){
@@ -70,6 +104,10 @@
                                     }
                                 }
                             `
+                        }, {
+                            headers: {
+                                'Authorization': this.tokenType + ' ' + this.bearerToken
+                            }
                         })
                     this.results = res.data.data.search
                 } catch (e) {
