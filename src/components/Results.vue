@@ -73,7 +73,7 @@
                     )
                 }
                 else{
-                    this.getData()
+                    await this.getData()
                 }
             },
             async getData() {
@@ -116,7 +116,7 @@
             },
             async onSubmit(event) {
                 event.preventDefault()
-                this.getSearchResults()
+                await this.getSearchResults()
             },
             onReset(evt) {
                 evt.preventDefault()

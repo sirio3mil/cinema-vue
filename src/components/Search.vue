@@ -30,7 +30,7 @@
         methods: {
             async onSubmit(evt) {
                 evt.preventDefault()
-                this.$router.push('/results/' + encodeURI(this.form.pattern));
+                await this.$router.push('/results/' + encodeURI(this.form.pattern));
             },
             onReset(evt) {
                 evt.preventDefault()
