@@ -106,7 +106,7 @@
                             `
                         }, {
                             headers: {
-                                'Authorization': this.tokenType + ' ' + this.bearerToken
+                                Authorization: this.tokenType + ' ' + this.bearerToken
                             }
                         })
                     this.results = res.data.data.search
